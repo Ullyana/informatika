@@ -1,4 +1,4 @@
-from cmath import *
+from math import *
 
 def task1():
   pass
@@ -19,3 +19,6 @@ f = (((x)**2)**(1/3)/x+a)+x**b
 print('f=',f)
 
 #задание 3
+x = float(input("Введите переменную x:"))
+f = 2*(-x)-((math.cosh(x)+math.sinh(2x))*(1/3)
+print('f=',f)
