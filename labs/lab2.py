@@ -19,3 +19,29 @@ def task1():
     else:
         print('число меньше заданного')
 task1()
+
+from math import *
+def is_square(a):
+    root = isqrt(a)
+    return root*root == a
+    if root*root == a:
+        b = 0
+    else:
+        b = 1
+        return b
+def task1():
+    e == 0;
+    while e:
+        print('введите число:')
+        c = float(input())
+        c = int()
+        if is_square(c) == 0:
+            print('является квадратом целого числа')
+        else:
+            print('не является квадратом целого числа')
+        d = 6   #заданное число
+        if c > d:
+            print('число больше заданного')
+        else:
+            print('число меньше заданного')
+task1()
