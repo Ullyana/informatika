@@ -71,3 +71,13 @@ def task1():
         else:
             print('Число меньше заданного')
 task1()
+
+2 задание 
+from math import *
+from matplotlib import *
+def task2():
+    a = float(input())
+    b = float(input())
+for i in range[a, b]:
+    
+task1()
