@@ -47,7 +47,7 @@ def task1():
 task1()
 
 
-1 задание исправленное
+1 задание (готовое)
 def is_square(n):
     if n < 1:
         return False
@@ -81,3 +81,25 @@ def task2():
 for i in range[a, b]:
     
 task1()
+
+
+5 задание (готовое)
+def task5():
+    print("Введите значение стороны a: ")
+    a = float(input())
+    print("Введите значение стороны b: ")
+    b = float(input())
+    print("Введите значение стороны c: ")
+    c = float(input())
+    if a + b > c and a + c > b and b + c > a:
+        print("Треугольник существует")
+        if (c ** 2 == a ** 2 + b ** 2) or (a ** 2 == b ** 2 + c ** 2) or (b ** 2 == a ** 2 + c ** 2):
+            print("Треугольник прямоугольный")
+        elif (c ** 2 < a ** 2 + b ** 2) or (a ** 2 < b ** 2 + c ** 2) or (b ** 2 < a ** 2 + c ** 2):
+            print("Треугольник острый")
+        elif (c ** 2 > a ** 2 + b ** 2) or (a ** 2 > b ** 2 + c ** 2) or (b ** 2 > a ** 2 + c ** 2):
+            print("Треугольник тупой")
+    else:
+        print("Треугольник не существует")
+
+task5()
