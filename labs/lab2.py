@@ -45,3 +45,29 @@ def task1():
         else:
             print('число меньше заданного')
 task1()
+
+
+1 задание исправленное
+def is_square(n):
+    if n < 1:
+        return False
+    else:
+        for i in range(int(n / 2) + 1):
+            if (i * i) == n:
+                return True
+        return False
+def task1():
+    a = True
+    while a:
+        print('Введите число:')
+        b = float(input())
+        c = 51 #заданное число
+        if is_square(b) == True:
+            print('Число является квадратом целого числа')
+        else:
+            print('Число не является квадратом целого числа')
+        if b > c:
+            print('Число больше заданного')
+        else:
+            print('Число меньше заданного')
+task1()
