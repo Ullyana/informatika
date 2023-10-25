@@ -72,16 +72,27 @@ def task1():
             print('Число меньше заданного')
 task1()
 
-2 задание 
-from math import *
-from matplotlib import *
+2 задание
 def task2():
+    print('Введите значение a:')
     a = float(input())
+    print('Введите значение b:')
     b = float(input())
-for i in range[a, b]:
-    
-task1()
-
+    x = [a]
+    h = abs(a-b)/10
+    f = []
+    i=0
+    while len(x) <= 10:
+        if x[i]<0:
+            c = 7*sin(x[i])+9*cos(x[i])
+            f.append(c)
+        else:
+            d = (x[i]-exp(x[i]))**2
+            f.append(d)
+        x.append(x[i]+h)
+        i+=1
+    print(x,f)
+task2()
 
 5 задание (готовое)
 def task5():
@@ -103,3 +114,4 @@ def task5():
         print("Треугольник не существует")
 
 task5()
+
