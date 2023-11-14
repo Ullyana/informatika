@@ -115,3 +115,21 @@ def task5():
 
 task5()
 
+4 задание 
+def task4():
+    x = float(input())
+    y = float(input())
+    one = (y<=3*x-5) and (y<=-3*x+13) and (y>=-0,5*x+2)
+    two = ((x-4)**2+(y+1)**2<=4) and (y<=2*x-8) and (x>=3)
+    three = (y<=x-7) and (y>=x-10) and (y<=-2*x+11) and (y>=-2*x-5)
+    four = (x>=4) and (x<=5) and ((x-4)**2+(y+1)**2<=4)
+    five = (y<=-x+1) and ((x-4)**2+(y+1)**2<=4)
+    
+    six = (y<=5) and (y>=1) and (y>=1,5*x+2) and (x>=-1)
+    seven = (y<=0,5*x+2) and (y<=-x+2) and (y>=-0,25*x+0,5)
+    eight = (y<=-x-1) and (y<=-3*x-1) and (y>=-1,5*x-2,5)
+    nine = ((x+1)**2+(y-1)**2<=4) and (y>=2) and (x<=-1)
+    ten = ((x+1)**2+(y-1)**2<=4) and (y<=-x-1) and (y<=1)
+    figure1 = one or two or three or four or five
+    figure2 = six or seven or eight or nine or ten
+task4()
