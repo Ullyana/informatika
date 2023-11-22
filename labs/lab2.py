@@ -94,6 +94,31 @@ def task2():
     print(x,f)
 task2()
 
+3 задание 
+def decimal_in_new_numeral_system(number, base):
+    result = ''
+    intp = int(number)
+    frp = number - intp
+    while intp > 0
+        r = intp % base
+        result = str(r) + result
+        intp = intp // base
+    result += '.'
+    pr = 4
+    while frp > 0 and pr > 0
+        frp *= base
+        digit = int(frp)
+        result += str(digit)
+        frp -= digit
+        pr -= 1
+    return result
+def task3():
+    number = float(input('Введите десятичное число: '))
+    base = int(input('Выберите систему счисления: '))
+    result = decimal_in_new_numeral_system(number, base)
+    print(f"Результат: {result}")
+task3()
+
 5 задание (готовое)
 def task5():
     print("Введите значение стороны a: ")
