@@ -171,3 +171,19 @@ def task8()
     d = 2 # разность арифметической прогрессии# # # = x - (( x - 1 ) ** 3) / factorial(3) + (( x - 1 ) ** 5) / factorial(5) + 
 
 task8()
+
+
+def factorial(n):
+    result = 1
+    for i in range(1,n+1)
+        result *=i
+        return result
+def task8()
+    x = float(input())
+    e = 0,001   #точность ряда
+    d = 2
+    S1 = x - (( x - 1 ) ** (1+(d*1)) / factorial((1+(d*1))
+    S2 = x - (( x - 1 ) ** (1+(d*1)) / factorial((1+(d*1)) + ( x - 1 ) ** (1+(d*2)) / factorial((1+(d*2))
+if S2-S1=e:
+task8()
+
