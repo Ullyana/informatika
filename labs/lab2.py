@@ -158,3 +158,16 @@ def task4():
     figure1 = one or two or three or four or five
     figure2 = six or seven or eight or nine or ten
 task4()
+
+
+def factorial(n):
+    result = 1
+    for i in range(1,n+1)
+        result *=i
+        return result
+def task8()
+    e = 1.e-8  #точность ряда
+
+    d = 2 # разность арифметической прогрессии# # # = x - (( x - 1 ) ** 3) / factorial(3) + (( x - 1 ) ** 5) / factorial(5) + 
+
+task8()
