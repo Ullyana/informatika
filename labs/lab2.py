@@ -187,3 +187,24 @@ def task8()
 if S2-S1=e:
 task8()
 
+
+
+                                                                                                
+def factorial(n):
+    result = 1
+    for i in range(1,n+1):
+        result *=i
+        return result
+
+def task8():
+    EPS = 0.001
+
+    x = float(input('Введите x: '))
+    m = int(input('Введите конечное число: '))
+    while (sum1 - sum >= EPS):
+    for i in range(1, m+1):
+
+        sum=x+(-1)**i*((x-1)**(2*i+1)/factorial(2*i+1))
+
+        sum1=sum
+        print(i,sum,sum1)
