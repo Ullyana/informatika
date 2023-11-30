@@ -208,3 +208,44 @@ def task8():
 
         sum1=sum
         print(i,sum,sum1)
+
+
+Непонятно в чем проблема:
+    def factorial(n):
+    result = 1
+    for i in range(1,n+1):
+        result *=i
+        return result
+
+def task8():
+    EPS = 0.001
+    x = float(input('Введите x: '))
+    m = int(input('Введите конечное число: '))
+    h = m + 1
+    for i in range(1, m + 1):
+        sum = x+(-1)**i*((x-1)**(2*i+1)/factorial(2*i+1))
+    for i in range(1, h + 1):
+        sum1 = x + (-1) ** i * ((x - 1) ** (2 * i + 1) / factorial(2 * i + 1))
+    while (abs(sum - sum1) >= EPS):
+        print(i,sum1,sum)
+task8()
+
+Готовое 8 задание но без Эпс
+def factorial(n):
+    result = 1
+    for i in range(1,n+1):
+        result *=i
+        return result
+
+def task8():
+
+    x = float(input('Введите x: '))
+    m = int(input('Введите конечное число: '))
+
+    for i in range(1, m+1):
+
+        sum=x+(-1)**i*((x-1)**(2*i+1)/factorial(2*i+1))
+
+        print(i,sum)
+task8()
+    
