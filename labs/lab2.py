@@ -283,3 +283,15 @@ def task6():
     quantity_rabbits = rabbits_of_the_year(h)
     print(quantity_rabbits)
 task6()
+
+
+9 задание 
+def task9_1():
+    current_sum = 0
+    for i in range(1,8):
+        for j in range(i):
+            current_sum += (j+2*i-1)
+
+    print(current_sum)
+task9_1()
+    
