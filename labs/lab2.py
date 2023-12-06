@@ -285,7 +285,7 @@ def task6():
 task6()
 
 
-9 задание 
+9 задание
 def task9_1():
     current_sum = 0
     for i in range(1,8):
@@ -295,3 +295,11 @@ def task9_1():
     print(current_sum)
 task9_1()
     
+from math import *
+def task9_2():
+    current_multiplication = 1
+    for i in range(1, 5):
+        for j in range(i):
+            current_multiplication *= (sin(i + j)
+    print(current_multiplication)
+task9_2()
