@@ -272,3 +272,14 @@ def task8():
         print(i,sum)
 task8()
     
+6 задание 
+def rabbits_of_the_year(months):
+    if months == 1 or months == 2:
+        return 1
+    else:
+        return rabbits_of_the_year(months-1)+rabbits_of_the_year(months-2)
+def task6():
+    h = float(input('Введите количество месяцев: '))
+    quantity_rabbits = rabbits_of_the_year(h)
+    print(quantity_rabbits)
+task6()
