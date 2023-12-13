@@ -303,3 +303,20 @@ def task9_2():
             current_multiplication *= (sin(i + j)
     print(current_multiplication)
 task9_2()
+
+задание10
+def koren(y: float, x: float, p: float) -> float:
+    EXP = 1e-6  # точность вычислений
+    while True:
+        y_next = (1/p) * ((p-1) * y + (x / (y ** (p-1))))
+        if abs(y_next - y) <= EXP:
+            return y_next
+        y = y_next
+ 
+x = float(input("Введите число x: "))
+p = float(input("Введите степень p: "))
+ 
+y = math.exp(math.log(x * (p + 1)) / p) 
+root = koren(y, x, p)
+ 
+print(f"Корень {p}-й степени числа {x} равен {root}")
