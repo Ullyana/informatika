@@ -125,11 +125,11 @@ class MainWindow(QMainWindow):
         self.plot_button = QPushButton('Нарисовать график')
         self.plot_button.clicked.connect(self.plot_data)
 
-        self.range_label = QLabel('Диапазон:')
+        self.range_label = QLabel('Выберите диапазон:')
         self.range_start_input = QLineEdit('0')
         self.range_end_input = QLineEdit('1')
 
-        self.point_amount = QLabel('Количество точек на графике:')
+        self.point_amount = QLabel('Выберите количество точек на графике:')
         self.point_input = QLineEdit('100')
 
         self.add_function_button = QPushButton('Добавить функцию в список')
@@ -169,7 +169,7 @@ class MainWindow(QMainWindow):
             range_start = 0
             range_end = 1
             points = 50
-
+        plt.title('График функции ' + expression)
         functions = {}
         exec(f'def f(x): return {expression}', functions)
 
