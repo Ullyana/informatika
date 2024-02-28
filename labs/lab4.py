@@ -248,3 +248,92 @@ main_window.show()
 app.exec_()
 
 3 ЗАДАНИЕ
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem
+from PyQt5 import QtCore
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
+class GraphWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("График и таблица")
+        self.setGeometry(100, 100, 700, 700)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        layout = QVBoxLayout(central_widget)
+
+        self.figure, self.ax = plt.subplots()
+        self.canvas = FigureCanvas(self.figure)
+        layout.addWidget(self.canvas)
+
+        self.button_plot = QPushButton("Построить")
+        layout.addWidget(self.button_plot)
+        self.button_plot.clicked.connect(self.plot_graph)
+
+        self.ax.set_xlabel('X')
+        self.ax.set_ylabel('Y')
+        self.ax.set_title('График')
+        self.ax.grid(True)
+
+        self.current_point = None
+
+        # Создание таблицы
+        self.table = QTableWidget()
+        self.table.setRowCount(4)  # Установка количества строк
+        self.table.setColumnCount(6)  # Установка количества столбцов
+        self.table = QTableWidget()
+        self.table.setRowCount(4)  # Установка количества строк
+        self.table.setColumnCount(9)  # Установка количества столбцов
+
+        for i in range(4):
+            for j in range(9):
+                item = QTableWidgetItem(str(i * j))
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)  # установка флага для редактирования
+                self.table.setItem(i, j, item)
+
+        # Заполнение и установка редактируемости таблицы
+        for i in range(4):
+            for j in range(6):
+                item = QTableWidgetItem(str(i * j))
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable) # установка флага для редактирования
+                self.table.setItem(i, j, item)
+
+        layout.addWidget(self.table)
+
+        # Соединение изменений в таблице с функцией обновления графика
+        self.table.itemChanged.connect(self.update_graph)
+
+    def plot_graph(self):
+        x_val = float(self.entry_x.text())
+        y_val = float(self.entry_y.text())
+        if self.current_point:
+            self.current_point.remove()
+        self.current_point, = self.ax.plot(x_val, y_val, 'ro')
+        self.canvas.draw()
+
+    def update_graph(self, item):
+        row = item.row()
+        col = item.column()
+        val = float(item.text())
+        if col == 1 or col == 2 or col == 3 or col == 4 or col == 5:
+            x_val = float(self.table.item(row, 1).text())
+            y_val = float(self.table.item(row, 2).text())
+            length = float(self.table.item(row, 3).text())
+            width = float(self.table.item(row, 4).text())
+            angle = float(self.table.item(row, 5).text())
+
+            # Обновление прямоугольника на графике
+            rect = plt.Rectangle((x_val, y_val), length, width, angle=angle, edgecolor='blue', facecolor='none')
+            self.ax.add_patch(rect)
+            self.canvas.draw()
+            
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = GraphWindow()
+    window.show()
+    sys.exit(app.exec_())
