@@ -1,4 +1,4 @@
-
+1 ЗАДАНИЕ
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -139,3 +139,112 @@ if __name__ == "__main__":
     window = GraphWindow()
     window.show()
     sys.exit(app.exec_())
+
+2 ЗАДАНИЕ
+from PyQt5.QtWidgets import (
+ QApplication,
+ QLabel,
+ QLineEdit,
+ QMainWindow,
+ QPushButton,
+ QVBoxLayout,
+ QWidget,
+ QSpinBox,
+ QMessageBox,
+ QFileDialog,
+ QComboBox
+)
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+
+        # Назначим заголовок окна
+        self.setWindowTitle("График")
+
+        # Создание виджетов
+        self.canvas = FigureCanvas(plt.figure()) # Создание полотна Matplotlib
+
+        # Создание центрального виджета
+        central_widget = QWidget()
+        layout = QVBoxLayout() # макет, на который будут добавляться виджеты
+        central_widget.setLayout(layout) # добавление макета на центральный виджет
+
+        # Добавление виджетов на макет
+        layout.addWidget(self.canvas)
+
+        # Установка центрального виджета
+        self.setCentralWidget(central_widget)
+
+        self.plot_button = QPushButton("Нарисовать график")
+        self.plot_button.clicked.connect(self.plot_data)
+
+        layout.addWidget(self.plot_button)
+
+        self.range_label = QLabel("Диапазон:")
+        self.range_start_input = QLineEdit('-1')
+        self.range_end_input = QLineEdit('1')
+
+        layout.addWidget(self.range_label)
+        layout.addWidget(self.range_start_input)
+        layout.addWidget(self.range_end_input)
+
+        self.function_label = QLabel("Функция:")
+        self.function_input = QLineEdit('x**3')
+
+        layout.addWidget(self.function_label)
+        layout.addWidget(self.function_input)
+
+
+
+    def plot_data(self):
+        try:
+            range_start = float(self.range_start_input.text())
+            range_end = float(self.range_end_input.text())
+        except ValueError:
+            range_start = 0
+            range_end = 1
+
+        # Получаем количество точек из QSpinBox
+        num_points = 100
+
+        x = np.linspace(range_start, range_end, num_points)
+
+        try:
+            expression = self.function_input.text()
+        except ValueError:
+            expression = "x**3"
+
+        try:
+            functions = {}  # определим словарь функций
+            exec(f"def f(x): return {expression}", functions)
+            function = functions["f"]
+
+            x = np.linspace(range_start, range_end, num_points)
+            y = [function(value) for value in x]
+
+            plt.title('График функции ' + expression)
+
+            plt.plot(x, y)
+            plt.grid(True)
+
+            plt.xlabel('x')
+            plt.ylabel('y')
+            # Добавляем функцию в виджет списка, если она не была добавлена ранее
+            # Обработка ошибки ввода неверной функции
+            self.centralWidget().layout().itemAt(0).widget().draw()
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Ошибка при построении графика: {e}")
+
+# Создать приложение QApplication
+app = QApplication([])
+# Создать окно приложения
+main_window = MainWindow()
+main_window.show()
+# Запустить приложение
+app.exec_()
+
+3 ЗАДАНИЕ
