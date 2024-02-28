@@ -10,7 +10,7 @@ class GraphWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("График")
-        self.setGeometry(100, 100, 800, 700)
+        self.setGeometry(100, 100, 700, 700)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
