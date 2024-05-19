@@ -1,3 +1,183 @@
+2 ЗАДАНИЕ
+
+import time
+from PyQt5.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow, QPushButton, QFormLayout, QWidget, QComboBox, QMessageBox)
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PyQt5 import QtGui
+
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+
+        self.setWindowTitle('График')
+        self.fig = plt.figure()
+        self.canvas = FigureCanvas(self.fig)
+
+        cental_widget = QWidget()
+        layout = QFormLayout()
+        cental_widget.setLayout(layout)
+        layout.addWidget(self.canvas)
+        plt.grid(True)
+        self.setCentralWidget(cental_widget)
+
+        self.plot_button = QPushButton('Нарисовать график')
+        self.plot_button.clicked.connect(self.plot_data)
+
+        self.range_label = QLabel('Диапазон:')
+        self.range_start_input = QLineEdit('-15')
+        self.range_end_input = QLineEdit('10')
+
+        self.add_function_button = QPushButton('Добавить функцию в список')
+        self.function_label = QLabel("Введите функцию:")
+        self.function_input = QLineEdit('')
+        self.function_widget = QComboBox()
+        self.function_widget.addItems(['x**2+x**3+1', '5*x-5', 'x**2+3'])
+        self.add_function_button.clicked.connect(self.add_function)
+
+        self.point_amount = QLabel('Количество точек на графике:')
+        self.point_input = QLineEdit('50')
+
+        self.clear_button = QPushButton('Очистить график')
+        self.clear_button.clicked.connect(self.clear_plot)
+
+        self.error_message = QMessageBox()
+        self.error_message.setText("Неверная функция")
+        self.error_message.setWindowTitle('Ошибка')
+        self.error_message.setIcon(QMessageBox.Critical)
+
+        self.error_message2 = QMessageBox()
+        self.error_message2.setText("На данном диапазоне f(c) != 0")
+        self.error_message2.setWindowTitle('Ошибка')
+        self.error_message2.setIcon(QMessageBox.Critical)
+
+        self.bisection_button = QPushButton('Метод половинного деления')
+        self.bisection_button.clicked.connect(self.bisection)
+
+        self.bisection_label = QLabel("Полученный диапазон:")
+        self.bisection_range_start_current = QLineEdit('-15')
+        self.bisection_range_end_current = QLineEdit('10')
+        self.bisection_range_start_current.setEnabled(False)
+        self.bisection_range_end_current.setEnabled(False)
+
+        self.add_range_button = QPushButton('Изменить диапазон')
+        self.add_range_button.clicked.connect(self.change_range)
+        layout.addWidget(self.function_widget)
+        layout.addWidget(self.range_label)
+        layout.addWidget(self.range_start_input)
+        layout.addWidget(self.range_end_input)
+        layout.addWidget(self.add_range_button)
+        layout.addWidget(self.bisection_label)
+        layout.addWidget(self.bisection_range_start_current)
+        layout.addWidget(self.bisection_range_end_current)
+        layout.addWidget(self.bisection_button)
+        layout.addWidget(self.clear_button)
+        layout.addWidget(self.function_label)
+        layout.addWidget(self.function_input)
+        layout.addWidget(self.add_function_button)
+    def vectors(self):
+        expression = self.function_widget.currentText()
+
+        try:
+            range_start = float(self.range_start_input.text())
+            range_end = float(self.range_end_input.text())
+            points = int(self.point_input.text())
+        except ValueError:
+            range_start = 0
+            range_end = 1
+            points = 50
+
+        functions = {}
+        try:
+            exec(f'def f(x): return {expression}', functions)
+            function = functions['f']
+            x = np.linspace(range_start, range_end, points)
+            y = [function(value) for value in x]
+            return x, y
+
+        except NameError:
+            self.error_message.show()
+            return 0
+        except SyntaxError:
+            self.error_message.show()
+            return 0
+
+    def plot_data(self):
+        if self.vectors() != 0:
+            x, y = self.vectors()
+            axes = plt.subplot()
+            axes.plot(x, y)
+            plt.grid(True)
+            plt.xlabel('x')
+            plt.ylabel('y')
+
+            self.centralWidget().layout().itemAt(0).widget().draw()
+
+    def clear_plot(self):
+        for ax in self.fig.axes:
+            ax.clear()
+        plt.grid(True)
+        self.canvas.draw()
+
+    def add_function(self):
+        text_x = self.function_input.text()
+        self.function_widget.addItems([text_x])
+
+    def bisection(self):
+        a, b = float(self.bisection_range_start_current.text()), float(self.bisection_range_end_current.text())
+        EPS = 10**-3
+        expression = self.function_widget.currentText()
+        functions = {}
+        exec(f'def ff(x): return {expression}', functions)
+        f = functions['ff']
+        c = (a + b) / 2
+
+        while abs(f(c)) >= EPS:
+            if f(c) == 0:
+                self.bisection_range_start_current.setText(str(a))
+                self.bisection_range_end_current.setText(str(b))
+            plt.scatter(c, f(c))
+            self.canvas.draw()
+
+            if f(c) < 0:
+                if f(b) > 0:
+                    a = c
+                elif f(a) > 0:
+                    b = c
+            elif f(c) > 0:
+                if f(b) < 0:
+                    a = c
+                elif f(a) < 0:
+                    b = c
+                    
+            x = np.linspace(a, b, 50)
+            y = [f(value) for value in x]
+            plt.plot(x, y)
+            self.bisection_range_start_current.setText(str(a))
+            self.bisection_range_end_current.setText(str(b))
+            a, b = float(self.bisection_range_start_current.text()), float(self.bisection_range_end_current.text())
+            c = (a + b) / 2
+    def change_range(self):
+        self.bisection_range_start_current.setText(str(self.range_start_input.text()))
+        self.bisection_range_end_current.setText(str(self.range_end_input.text()))
+
+
+app = QApplication([])
+main_window = MainWindow()
+main_window.show()
+app.exec()
+
+
+
+
+
+
+
+
+
+
 1 ЗАДАНИЕ
 import sys
 import numpy as np
